@@ -18,4 +18,4 @@ def getdata():
 
 getdata()
 
-#N ote to self - use Shift+Alt+F to reformat JSON file
+# Note to self - use Shift+Alt+F to reformat JSON file
