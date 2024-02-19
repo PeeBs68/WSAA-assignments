@@ -2,7 +2,7 @@
 
 # Author: Phelim Barry
 
-# Purpose: outputs the current temperature to the console (and maybe the current wind direction, for extra marks)
+# Purpose: outputs the current temperature (2m) and current wind direction (10m) to the console
 
 # Using latitude = 51.734507 & longitude = -8.539811 (Kinsale Golf Club, Co. Cork!)
 
@@ -18,7 +18,7 @@ current_wdir = data["current"]["wind_direction_10m"]
 current_temp = data["current"]["temperature_2m"]
 
 # Just to add a bit more detail
-# https://uni.edu/storm/Wind%20Direction%20slide.pdf
+# wind directions from : https://uni.edu/storm/Wind%20Direction%20slide.pdf
 if current_wdir < 90:
     wdir = "North/Easterly"
 elif current_wdir < 180:
