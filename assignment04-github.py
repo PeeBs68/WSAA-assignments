@@ -2,43 +2,32 @@
 
 # Author: Phelim Barry
 
-# Purpose: Read a file from a repo, make changes to the file and then push it back to the repo
+# Purpose: Read a file from a repo, make changes to the data and then push changes back to the repo
 
+# import required modules
 import requests
-import json
-
-# define old and new strings
-original_name = "Andrew"
-new_name = "Phelim"
-
-# pull the file from the repo...
-#
-#
-
-# read in the file and make the change
-# https://www.geeksforgeeks.org/how-to-search-and-replace-text-in-a-file-in-python/
-with open('filename', 'r') as fp:
-    data = fp.read()
-    data = data.replace(original_name, new_name)
-
-# save the changes to the file
-with open('filename', 'w') as fp:
-    fp.write(data)
-
-# write the file back to the repo...
-#
-#
-
-# Will probably need this for the writing back to GitHub
 from config import config as cfg
-url = 'https://api.github.com/repos/PeeBs68/aprivateone'
+from github import Github
 
+# read github api key
 apikey = cfg["githubkey"]
-print (apikey)
+g = Github(apikey)
 
-response = requests.get(url, auth=('token',apikey))
-repoJSON = response.json()
+# get file details
+repo = g.get_repo("PeeBs68/wsaa-assignments")
+fileinfo = repo.get_contents("temp.txt")
+fileurl = fileinfo.download_url
 
-filename = "aprivateone.txt"
-with open(filename, "w") as fp:
-    json.dump(repoJSON, fp, indent=4)
+# get contents of file
+response = requests.get(fileurl)
+original_contents = response.text
+
+# update contents
+original_str = "one"
+new_str = "Phelim"
+newcontents = original_contents.replace(original_str, new_str)
+
+# post contents back to repo
+response=repo.update_file(fileinfo.path,"File Update", newcontents,fileinfo.sha)
+print (response)
+
