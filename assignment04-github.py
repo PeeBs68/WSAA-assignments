@@ -13,7 +13,7 @@ from github import Github
 apikey = cfg["githubkey"]
 g = Github(apikey)
 
-# get file details
+# get file details from repo
 repo = g.get_repo("PeeBs68/wsaa-assignments")
 fileinfo = repo.get_contents("temp.txt")
 fileurl = fileinfo.download_url
@@ -21,13 +21,16 @@ fileurl = fileinfo.download_url
 # get contents of file
 response = requests.get(fileurl)
 original_contents = response.text
+#print(original_contents)
 
 # update contents
-original_str = "one"
-new_str = "Phelim"
-newcontents = original_contents.replace(original_str, new_str)
+original_str = "Phelim"
+new_str = "Andrew"
+new_contents = original_contents.replace(original_str, new_str)
+#print(new_contents)
 
 # post contents back to repo
-response=repo.update_file(fileinfo.path,"File Update", newcontents,fileinfo.sha)
-print (response)
+response=repo.update_file(fileinfo.path,"File Update", new_contents,fileinfo.sha)
+#print (response)
 
+print("Changes Complete")
