@@ -24,8 +24,8 @@ original_contents = response.text
 #print(original_contents)
 
 # update contents
-original_str = "Phelim"
-new_str = "Andrew"
+original_str = "Andrew"
+new_str = "Phelim"
 new_contents = original_contents.replace(original_str, new_str)
 #print(new_contents)
 
